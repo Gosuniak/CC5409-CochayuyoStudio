@@ -10,15 +10,15 @@ var is_local_player: bool = false
 @onready var camera: Camera2D = $Camera2D
 @onready var capture_area: Area2D = $CaptureArea
 
-
 func setup(data: Statics.PlayerData) -> void:
 	print("setup() - data.id:", data.id, " mi id:", multiplayer.get_unique_id())
 	player_id = data.id
 	name_label.text = data.name
 	is_local_player = (data.id == multiplayer.get_unique_id())
+
 	print("is_local_player:", is_local_player)
 	camera.enabled = is_local_player
-	
+
 	if data.role == Statics.Role.JOFFREY:
 		sprite.modulate = Color.RED
 		if multiplayer.is_server():

@@ -4,15 +4,18 @@
 [ext_resource type="Script" uid="uid://e5h6h6xpiik7" path="res://scripts/player.gd" id="1_v6fml"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v6fml"]
-radius = 65.0
+radius = 16.25
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3li8b"]
 radius = 67.00746
 
 [node name="Player" type="CharacterBody2D" unique_id=1845890662]
+collision_layer = 1
+collision_mask = 1
 script = ExtResource("1_v6fml")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1539009030]
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_p0vlq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=488200667]
@@ -27,6 +30,13 @@ offset_bottom = -68.0
 [node name="Camera2D" type="Camera2D" parent="." unique_id=300113736]
 enabled = false
 position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.22
+drag_top_margin = 0.22
+drag_right_margin = 0.22
+drag_bottom_margin = 0.22
 
 [node name="CaptureArea" type="Area2D" parent="." unique_id=1634406476]
 
