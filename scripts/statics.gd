@@ -9,8 +9,7 @@ const PORT: int = 5409 # Number between 1024 and 65535.
 enum Role {
 	NONE,
 	SURVIVOR,
-	JOFFREY,
-	ROLE_C
+	JOFFREY
 }
 
 
@@ -22,8 +21,6 @@ static func get_role_name(role: Role) -> String:
 			return "Survivor"
 		Role.JOFFREY:
 			return "Joffrey"
-		Role.ROLE_C:
-			return "Role C"
 	return "Unknown"
 
 
