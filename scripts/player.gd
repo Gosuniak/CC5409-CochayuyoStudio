@@ -8,12 +8,16 @@ var is_local_player: bool = false
 
 @onready var name_label: Label = $Label
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var camera: Camera2D = $Camera2D
 
 
 func setup(data: Statics.PlayerData) -> void:
 	player_id = data.id
 	name_label.text = data.name
 	is_local_player = (data.id == multiplayer.get_unique_id())
+	
+	# Solo activar la cámara para el jugador local
+	camera.enabled = is_local_player
 	
 	if data.role == Statics.Role.JOFFREY:
 		sprite.modulate = Color.RED
