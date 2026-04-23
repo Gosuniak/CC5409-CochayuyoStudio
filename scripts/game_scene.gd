@@ -2,6 +2,8 @@ class_name GameScene
 extends Node2D
 
 const PLAYER_SCENE: PackedScene = preload("res://scenes/Player.tscn")
+const RESPAWN_POSITION: Vector2 = Vector2(600, 400)  # Ajusta al centro de tu mapa
+const RESPAWN_DELAY: float = 2.0
 
 const SPAWN_POSITIONS: Array[Vector2] = [
 	Vector2(100, 100),

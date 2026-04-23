@@ -37,7 +37,15 @@ func _on_body_entered(body: Node) -> void:
 func _capture_survivor(survivor_id: int) -> void:
 	var survivor: Player = get_parent().get_node_or_null(str(survivor_id))
 	if survivor:
-		survivor.hide()
+		survivor._do_respawn()
+		
+# Llamar esto en el nodo del survivor capturado
+func _do_respawn() -> void:
+	hide()
+	# Esperar y reaparecer en el centro
+	await get_tree().create_timer(GameScene.RESPAWN_DELAY).timeout
+	position = GameScene.RESPAWN_POSITION
+	show()
 
 
 func _physics_process(_delta: float) -> void:
