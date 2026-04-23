@@ -4,6 +4,8 @@ extends Node2D
 const PLAYER_SCENE: PackedScene = preload("res://scenes/Player.tscn")
 const RESPAWN_POSITION: Vector2 = Vector2(600, 400)  # Ajusta al centro de tu mapa
 const RESPAWN_DELAY: float = 2.0
+const MAX_LIVES: int = 3
+var survivor_lives: int = MAX_LIVES
 
 const SPAWN_POSITIONS: Array[Vector2] = [
 	Vector2(100, 100),
@@ -28,3 +30,10 @@ func _spawn_player(data: Statics.PlayerData, index: int) -> void:
 	player.position = pos
 	add_child(player)
 	player.setup(data)
+	
+# Llamado por el servidor cuando un survivor es capturado
+@rpc("authority", "call_local", "reliable")
+func remove_survivor_life() -> void:
+	survivor_lives -= 1
+	print("Vidas restantes: ", survivor_lives)
+	# Aquí luego actualizaremos el HUD

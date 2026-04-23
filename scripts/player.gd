@@ -35,6 +35,10 @@ func _on_body_entered(body: Node) -> void:
 
 @rpc("authority", "call_local", "reliable")
 func _capture_survivor(survivor_id: int) -> void:
+	# Restar vida (solo el servidor llama esto, el rpc lo propaga)
+	if multiplayer.is_server():
+		var game_scene: GameScene = get_parent() as GameScene
+		game_scene.remove_survivor_life.rpc()
 	var survivor: Player = get_parent().get_node_or_null(str(survivor_id))
 	if survivor:
 		survivor._do_respawn()
