@@ -6,6 +6,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_v6fml"]
 radius = 16.25
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3li8b"]
+radius = 67.00746
+
 [node name="Player" type="CharacterBody2D" unique_id=1845890662]
 collision_layer = 1
 collision_mask = 1
@@ -19,12 +22,12 @@ texture = ExtResource("1_p0vlq")
 shape = SubResource("CircleShape2D_v6fml")
 
 [node name="Label" type="Label" parent="." unique_id=88956847]
-offset_left = -4.0
-offset_top = -24.0
-offset_right = 3.0
-offset_bottom = -17.0
+offset_left = -14.0
+offset_top = -91.0
+offset_right = 10.0
+offset_bottom = -68.0
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=300113736]
 enabled = false
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
@@ -34,3 +37,8 @@ drag_left_margin = 0.22
 drag_top_margin = 0.22
 drag_right_margin = 0.22
 drag_bottom_margin = 0.22
+
+[node name="CaptureArea" type="Area2D" parent="." unique_id=1634406476]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CaptureArea" unique_id=1210965817]
+shape = SubResource("CircleShape2D_3li8b")

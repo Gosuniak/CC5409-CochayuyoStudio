@@ -122,3 +122,8 @@ func reset() -> void:
 	Game.players = []
 	Debug.reset_window_title()
 	Game.update_player_id()
+	
+@rpc("authority", "call_local", "reliable")
+func go_to_end_screen(message: String) -> void:
+	Game.end_message = message
+	get_tree().change_scene_to_file("res://scenes/EndScreen.tscn")

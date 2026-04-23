@@ -13,6 +13,7 @@ signal vote_updated(id: int)
 @export var test_players: Array[PlayerDataResource] = [] # first one is server
 @export var main_scene: PackedScene
 
+var end_message: String = ""
 var players: Array[Statics.PlayerData] = []
 var change_window_scale : bool = true :
 	set(value):
