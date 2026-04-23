@@ -36,4 +36,10 @@ func _spawn_player(data: Statics.PlayerData, index: int) -> void:
 func remove_survivor_life() -> void:
 	survivor_lives -= 1
 	print("Vidas restantes: ", survivor_lives)
+	if survivor_lives < 0:
+		_end_game.rpc("Joffrey Wins!")
 	# Aquí luego actualizaremos el HUD
+	
+@rpc("authority", "call_local", "reliable")
+func _end_game(message: String) -> void:
+	Lobby.go_to_end_screen.rpc(message)
