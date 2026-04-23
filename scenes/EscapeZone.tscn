@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://blj4vrn8ldw7f"]
+
+[ext_resource type="Script" uid="uid://da2dbqn640lu6" path="res://scripts/escape_zone.gd" id="1_43mu4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_br65d"]
+size = Vector2(283, 186)
+
+[node name="EscapeZone" type="Area2D" unique_id=2090897124]
+script = ExtResource("1_43mu4")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1541240005]
+offset_left = -143.0
+offset_top = -91.0
+offset_right = 141.0
+offset_bottom = 94.0
+color = Color(1, 1, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=916118925]
+position = Vector2(-1, 2)
+shape = SubResource("RectangleShape2D_br65d")
