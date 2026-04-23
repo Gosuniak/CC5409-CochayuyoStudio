@@ -6,6 +6,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_v6fml"]
 radius = 65.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3li8b"]
+radius = 67.00746
+
 [node name="Player" type="CharacterBody2D" unique_id=1845890662]
 script = ExtResource("1_v6fml")
 
@@ -24,3 +27,8 @@ offset_bottom = -68.0
 [node name="Camera2D" type="Camera2D" parent="." unique_id=300113736]
 enabled = false
 position_smoothing_enabled = true
+
+[node name="CaptureArea" type="Area2D" parent="." unique_id=1634406476]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CaptureArea" unique_id=1210965817]
+shape = SubResource("CircleShape2D_3li8b")
