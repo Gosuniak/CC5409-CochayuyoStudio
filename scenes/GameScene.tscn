@@ -1,6 +1,16 @@
 [gd_scene format=3 uid="uid://bbpusmuxpp1xv"]
 
 [ext_resource type="Script" uid="uid://ng1fjbcr43a8" path="res://scripts/game_scene.gd" id="1_vh257"]
+[ext_resource type="PackedScene" uid="uid://blnn7ar08xomq" path="res://scenes/Item.tscn" id="2_xy3my"]
 
 [node name="GameScene" type="Node2D" unique_id=837888145]
 script = ExtResource("1_vh257")
+
+[node name="Area2D" parent="." unique_id=307945517 instance=ExtResource("2_xy3my")]
+position = Vector2(824, 69)
+
+[node name="Area2D2" parent="." unique_id=183726923 instance=ExtResource("2_xy3my")]
+position = Vector2(830, 322)
+
+[node name="Area2D3" parent="." unique_id=1410249369 instance=ExtResource("2_xy3my")]
+position = Vector2(841, 599)

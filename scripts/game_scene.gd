@@ -5,7 +5,9 @@ const PLAYER_SCENE: PackedScene = preload("res://scenes/Player.tscn")
 const RESPAWN_POSITION: Vector2 = Vector2(600, 400)  # Ajusta al centro de tu mapa
 const RESPAWN_DELAY: float = 2.0
 const MAX_LIVES: int = 3
+const TOTAL_ITEMS: int = 3
 var survivor_lives: int = MAX_LIVES
+var items_collected: int = 0
 
 const SPAWN_POSITIONS: Array[Vector2] = [
 	Vector2(100, 100),
@@ -43,3 +45,17 @@ func remove_survivor_life() -> void:
 @rpc("authority", "call_local", "reliable")
 func _end_game(message: String) -> void:
 	Lobby.go_to_end_screen.rpc(message)
+	
+# El servidor actualiza el contador y avisa a todos
+@rpc("authority", "call_local", "reliable")
+func on_item_collected() -> void:
+	if not multiplayer.is_server():
+		return  # Solo el servidor incrementa
+	items_collected += 1
+	# Avisar a todos los clientes el valor real
+	_sync_items.rpc(items_collected)
+	
+@rpc("authority", "call_local", "reliable")  
+func _sync_items(count: int) -> void:
+	items_collected = count
+	print("Items recogidos: %d/%d" % [items_collected, TOTAL_ITEMS])
