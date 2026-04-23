@@ -2,16 +2,20 @@ class_name GameScene
 extends Node2D
 
 const PLAYER_SCENE: PackedScene = preload("res://scenes/Player.tscn")
+const FOREST_MAP_SCENE: PackedScene = preload("res://scenes/ForestMap.tscn")
 
 const SPAWN_POSITIONS: Array[Vector2] = [
-	Vector2(100, 100),
-	Vector2(300, 100),
-	Vector2(500, 100),
-	Vector2(300, 300),
+	Vector2(768, 512),
+	Vector2(848, 512),
+	Vector2(688, 512),
+	Vector2(768, 592),
 ]
 
 
 func _ready() -> void:
+	var forest_map: ForestMap = FOREST_MAP_SCENE.instantiate()
+	add_child(forest_map)
+
 	# TODOS los clientes crean TODOS los jugadores
 	# No necesitamos que solo el servidor lo haga
 	for i in Game.players.size():
