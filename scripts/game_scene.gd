@@ -8,6 +8,7 @@ const MAX_LIVES: int = 3
 const TOTAL_ITEMS: int = 3
 var survivor_lives: int = MAX_LIVES
 var items_collected: int = 0
+@onready var hud: HUD = $HUD  # agregar HUD como hijo de GameScene
 
 const SPAWN_POSITIONS: Array[Vector2] = [
 	Vector2(100, 100),
@@ -23,6 +24,12 @@ func _ready() -> void:
 	for i in Game.players.size():
 		var data: Statics.PlayerData = Game.players[i]
 		_spawn_player(data, i)
+		
+	# Mostrar HUD solo a survivors
+	var current: Statics.PlayerData = Game.get_current_player()
+	hud.visible = true
+	hud.update_lives(survivor_lives)
+	hud.update_items(items_collected, TOTAL_ITEMS)
 
 
 func _spawn_player(data: Statics.PlayerData, index: int) -> void:
@@ -37,6 +44,7 @@ func _spawn_player(data: Statics.PlayerData, index: int) -> void:
 @rpc("authority", "call_local", "reliable")
 func remove_survivor_life() -> void:
 	survivor_lives -= 1
+	hud.update_lives(survivor_lives)
 	print("Vidas restantes: ", survivor_lives)
 	if survivor_lives < 0:
 		_end_game.rpc("Joffrey Wins!")
@@ -52,6 +60,7 @@ func on_item_collected() -> void:
 	if not multiplayer.is_server():
 		return  # Solo el servidor incrementa
 	items_collected += 1
+	hud.update_items(items_collected, TOTAL_ITEMS)
 	# Avisar a todos los clientes el valor real
 	_sync_items.rpc(items_collected)
 	
@@ -59,3 +68,4 @@ func on_item_collected() -> void:
 func _sync_items(count: int) -> void:
 	items_collected = count
 	print("Items recogidos: %d/%d" % [items_collected, TOTAL_ITEMS])
+	hud.update_items(items_collected, TOTAL_ITEMS)
