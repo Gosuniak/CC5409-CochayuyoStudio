@@ -13,11 +13,11 @@ radius = 67.00746
 script = ExtResource("1_v6fml")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1539009030]
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_p0vlq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=488200667]
-scale = Vector2(3, 3)
+scale = Vector2(1.6, 1.6)
 shape = SubResource("CircleShape2D_v6fml")
 
 [node name="Label" type="Label" parent="." unique_id=88956847]
@@ -40,5 +40,5 @@ drag_bottom_margin = 0.22
 [node name="CaptureArea" type="Area2D" parent="." unique_id=1634406476]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CaptureArea" unique_id=1210965817]
-scale = Vector2(0.75, 0.75)
+scale = Vector2(0.4, 0.4)
 shape = SubResource("CircleShape2D_3li8b")
