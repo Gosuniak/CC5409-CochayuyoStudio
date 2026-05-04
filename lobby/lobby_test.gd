@@ -55,7 +55,10 @@ func _on_peer_connected(id: int) -> void:
 		for i in Game.players.size():
 			_send_player_data_id.rpc(i, Game.players[i].id)
 		player_index += 1
-		start_game_timer.start()
+		if Game.is_team_composition_valid():
+			start_game_timer.start()
+		else:
+			print("Jugador conectado, pero la composición de roles aún no es 3 vs 1.")
 
 
 @rpc("reliable")
