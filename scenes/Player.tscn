@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="1_p0vlq"]
 [ext_resource type="Script" uid="uid://e5h6h6xpiik7" path="res://scripts/player.gd" id="1_v6fml"]
+[ext_resource type="Script" uid="uid://bb8cx1a7uhlhr" path="res://scripts/vision_cone.gd" id="3_3li8b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v6fml"]
 radius = 16.25
@@ -42,3 +43,7 @@ drag_bottom_margin = 0.22
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CaptureArea" unique_id=1210965817]
 scale = Vector2(0.4, 0.4)
 shape = SubResource("CircleShape2D_3li8b")
+
+[node name="VisionCone" type="Node2D" parent="." unique_id=426187541]
+position = Vector2(-1, 0)
+script = ExtResource("3_3li8b")
