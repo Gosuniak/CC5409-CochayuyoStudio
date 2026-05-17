@@ -132,11 +132,14 @@ func _start_game() -> void:
 
 
 func _can_start_game() -> bool:
+	# 1. Validamos que haya suficientes jugadores conectados
 	var quantity: bool = Game.players.size() >= Game.min_players
-	var completion: bool = not Game.use_roles or not Game.all_roles or _are_all_roles_selected()
-	var uniqueness: bool = not Game.use_roles or not Game.unique_roles or _are_all_roles_unique()
+	# 2. Validamos que nadie esté con el rol "Role?" (None)
 	var fullness: bool = not Game.use_roles or _all_players_selected_role()
-	return quantity and completion and uniqueness and fullness
+	# 3. Validamos tu composición de equipo 3vs1 (reemplaza a uniqueness y completion)
+	var team_composition: bool = not Game.use_roles or Game.is_team_composition_valid()
+	
+	return quantity and fullness and team_composition
 
 
 func _update_ready_button() -> void:

@@ -88,6 +88,24 @@ func get_current_player() -> Statics.PlayerData:
 	return get_player(multiplayer.get_unique_id())
 
 
+func is_team_composition_valid() -> bool:
+	# Definimos los objetivos de nuestra partida 3 vs 1
+	var target_killers: int = 1
+	var target_survivors: int = 3
+	
+	var current_killers: int = 0
+	var current_survivors: int = 0
+	
+	for player in players:
+		if player.role == Statics.Role.JOFFREY:
+			current_killers += 1
+		else:
+			# Asumimos que cualquier rol que no sea asesino es survivor
+			current_survivors += 1
+			
+	# Retorna verdadero solo si se cumplen ambas condiciones exactamente
+	return current_killers == target_killers and current_survivors == target_survivors
+
 @rpc("reliable")
 func update_indices(player_indices: Dictionary) -> void:
 	for player: Statics.PlayerData in Game.players:

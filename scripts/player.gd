@@ -4,11 +4,13 @@ extends CharacterBody2D
 const SPEED: float = 200.0
 var player_id: int = -1
 var is_local_player: bool = false
+var last_direction: Vector2 = Vector2.RIGHT
 
 @onready var name_label: Label = $Label
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var camera: Camera2D = $Camera2D
 @onready var capture_area: Area2D = $CaptureArea
+@onready var vision_cone: VisionCone = $VisionCone
 
 func setup(data: Statics.PlayerData) -> void:
 	print("setup() - data.id:", data.id, " mi id:", multiplayer.get_unique_id())
@@ -68,17 +70,57 @@ func _do_respawn() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if not is_local_player:
+		# Ocultar el cono en jugadores que no son locales
+		# (cada quien ve solo su propio cono)
+		vision_cone.visible = false
 		return
 	
 	var direction := Vector2.ZERO
 	direction.x = Input.get_axis("ui_left", "ui_right")
 	direction.y = Input.get_axis("ui_up", "ui_down")
 	
-	velocity = direction.normalized() * SPEED if direction != Vector2.ZERO else Vector2.ZERO
+	if direction != Vector2.ZERO:
+		last_direction = direction.normalized()
+		velocity = direction.normalized() * SPEED
+	else:
+		velocity = Vector2.ZERO
+	
+	# Rotar el cono hacia la dirección de movimiento
+	vision_cone.rotation = last_direction.angle()
+	
 	move_and_slide()
 	
 	if direction != Vector2.ZERO:
 		_sync_position.rpc(position)
+		
+	if is_local_player:
+		_update_visibility_of_others()
+		
+func _update_visibility_of_others() -> void:
+	var all_players: Array = get_parent().get_children()
+	for node in all_players:
+		if node is Player and node.player_id != player_id:
+			node.visible = _is_in_cone(node.global_position)
+
+
+func _is_in_cone(target_pos: Vector2) -> bool:
+	var to_target: Vector2 = target_pos - global_position
+	var distance: float = to_target.length()
+	
+	# Verificar distancia
+	if distance > vision_cone.cone_radius:
+		return false
+	
+	# Verificar ángulo
+	var angle_to_target: float = rad_to_deg(to_target.angle())
+	var cone_direction: float = rad_to_deg(last_direction.angle())
+	var angle_diff: float = abs(angle_to_target - cone_direction)
+	
+	# Normalizar la diferencia entre 0 y 180
+	if angle_diff > 180:
+		angle_diff = 360 - angle_diff
+	
+	return angle_diff <= vision_cone.cone_angle / 2.0
 
 
 @rpc("any_peer", "unreliable_ordered")

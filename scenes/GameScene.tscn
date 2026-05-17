@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://bbpusmuxpp1xv"]
 
 [ext_resource type="Script" uid="uid://ng1fjbcr43a8" path="res://scripts/game_scene.gd" id="1_vh257"]
+[ext_resource type="PackedScene" uid="uid://sfe37lq074q7" path="res://ui/in_game_menu.tscn" id="2_7s5hy"]
 [ext_resource type="PackedScene" uid="uid://blnn7ar08xomq" path="res://scenes/Item.tscn" id="2_xy3my"]
 [ext_resource type="PackedScene" uid="uid://blj4vrn8ldw7f" path="res://scenes/EscapeZone.tscn" id="3_cxv17"]
 [ext_resource type="PackedScene" uid="uid://tos14qu38m7m" path="res://scenes/HUD.tscn" id="4_18ig4"]
 
 [node name="GameScene" type="Node2D" unique_id=837888145]
 script = ExtResource("1_vh257")
+
+[node name="InGameMenu" parent="." unique_id=882074685 instance=ExtResource("2_7s5hy")]
 
 [node name="Area2D" parent="." unique_id=307945517 instance=ExtResource("2_xy3my")]
 position = Vector2(824, 69)
