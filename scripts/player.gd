@@ -15,7 +15,7 @@ var last_direction: Vector2 = Vector2.RIGHT
 func setup(data: Statics.PlayerData) -> void:
 	print("setup() - data.id:", data.id, " mi id:", multiplayer.get_unique_id())
 	player_id = data.id
-	name_label.text = data.name
+	name_label.text = Statics.get_role_name(data.role)
 	is_local_player = (data.id == multiplayer.get_unique_id())
 
 	print("is_local_player:", is_local_player)
@@ -37,7 +37,7 @@ func _on_body_entered(body: Node) -> void:
 		return
 	if body is Player and body.player_id != player_id:
 		var victim_data: Statics.PlayerData = Game.get_player(body.player_id)
-		if victim_data and victim_data.role == Statics.Role.SURVIVOR:
+		if victim_data and Statics.is_survivor_role(victim_data.role):
 			_capturing = true
 			_capture_survivor.rpc(body.player_id)
 			await Game.get_tree().create_timer(0.5).timeout

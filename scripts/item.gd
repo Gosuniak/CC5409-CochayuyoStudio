@@ -18,7 +18,7 @@ func _on_body_entered(body: Node) -> void:
 		return
 	if body is Player:
 		var data: Statics.PlayerData = Game.get_player(body.player_id)
-		if data and data.role == Statics.Role.SURVIVOR:
+		if data and Statics.is_survivor_role(data.role):
 			is_collected = true  # ← marcar ANTES de llamar el rpc
 			_collect.rpc()
 

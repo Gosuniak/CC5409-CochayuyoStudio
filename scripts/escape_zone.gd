@@ -15,7 +15,7 @@ func _on_body_entered(body: Node) -> void:
 		return
 	if body is Player:
 		var data: Statics.PlayerData = Game.get_player(body.player_id)
-		if data and data.role == Statics.Role.SURVIVOR:
+		if data and Statics.is_survivor_role(data.role):
 			if body.player_id not in survivors_inside:
 				survivors_inside.append(body.player_id)
 			_check_win_condition()
@@ -35,7 +35,7 @@ func _check_win_condition() -> void:
 	
 	var total_survivors: int = 0
 	for player_data in Game.players:
-		if player_data.role == Statics.Role.SURVIVOR:
+		if Statics.is_survivor_role(player_data.role):
 			total_survivors += 1
 	
 	var all_items: bool = game_scene.items_collected >= GameScene.TOTAL_ITEMS

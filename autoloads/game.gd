@@ -99,8 +99,7 @@ func is_team_composition_valid() -> bool:
 	for player in players:
 		if player.role == Statics.Role.JOFFREY:
 			current_killers += 1
-		else:
-			# Asumimos que cualquier rol que no sea asesino es survivor
+		elif Statics.is_survivor_role(player.role):
 			current_survivors += 1
 			
 	# Retorna verdadero solo si se cumplen ambas condiciones exactamente

@@ -8,7 +8,9 @@ const PORT: int = 5409 # Number between 1024 and 65535.
 
 enum Role {
 	NONE,
-	SURVIVOR,
+	BOBBY,
+	VIVI,
+	DEWEY,
 	JOFFREY
 }
 
@@ -17,11 +19,19 @@ static func get_role_name(role: Role) -> String:
 	match role:
 		Role.NONE:
 			return "None"
-		Role.SURVIVOR:
-			return "Survivor"
+		Role.BOBBY:
+			return "Bobby"
+		Role.VIVI:
+			return "Vivi"
+		Role.DEWEY:
+			return "Dewey"
 		Role.JOFFREY:
 			return "Joffrey"
 	return "Unknown"
+
+
+static func is_survivor_role(role: Role) -> bool:
+	return role == Role.BOBBY or role == Role.VIVI or role == Role.DEWEY
 
 
 class PlayerData:
